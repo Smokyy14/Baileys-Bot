@@ -3,8 +3,8 @@ const axios = require("axios");
 module.exports = {
     name: "tiktok",
     alias: ["ttdl", "tt"],
-    category: "Comandos",
-    description: "Descarga videos o imágenes de TikTok.",
+    category: "General",
+    description: "Download videos from TikTok",
     use: "-tiktok <url>",
 
     async execute(sock, msg, args) {
@@ -16,7 +16,7 @@ module.exports = {
             return sock.sendMessage(
                 from,
                 {
-                    text: "Por favor, proporciona un enlace de TikTok.\n> Uso: -tiktok <url>",
+                    text: "Please provide a TikTok link.\n> Usage: -tiktok < url >",
                 },
                 { quoted: info }
             );
@@ -36,7 +36,7 @@ module.exports = {
                 return sock.sendMessage(
                     from,
                     {
-                        text: "No se pudo obtener información del video. Verifica el enlace.",
+                        text: "Could not get video information, check the link.",
                     },
                     { quoted: info }
                 );
@@ -58,7 +58,7 @@ module.exports = {
                 return sock.sendMessage(
                     from,
                     {
-                        text: "No se pudo descargar el video.",
+                        text: "Cannot download the video.",
                     },
                     { quoted: info }
                 );
@@ -68,11 +68,11 @@ module.exports = {
                 react: { text: "✅", key: info?.key },
             });
         } catch (error) {
-            console.error("Error al descargar el contenido de TikTok:", error);
+            console.error("Error downloading TikTok video:", error);
             await sock.sendMessage(
                 from,
                 {
-                    text: "Hubo un error al procesar tu solicitud. Intenta nuevamente.",
+                    text: "An error ocurred trying to download the video.",
                 },
                 { quoted: info }
             );
