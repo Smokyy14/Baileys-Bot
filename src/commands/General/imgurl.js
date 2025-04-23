@@ -1,13 +1,13 @@
-const { downloadContentFromMessage } = require("@whiskeysockets/baileys");
+const { downloadContentFromMessage } = require("baileys");
 const axios = require("axios");
 const { FormData, Blob } = require('formdata-node');
 
 module.exports = {
   name: "imgurl",
   alias: ["tourl"],
-  category: "Comandos",
-  description: "Sube una imagen a imgbb y devuelve una URL.",
-  use: "/tourl",
+  category: "General",
+  description: "Upload a photo to img.bb and return the link",
+  use: "/imgurl",
   isutilidades: true,
 
   execute: async (sock, msg, args) => {
@@ -33,7 +33,7 @@ module.exports = {
       const formData = new FormData();
             formData.append("image", blob, "image.png");
 
-      const params = { key: "308dd9e0f85152952b3b9b90d0598ef0" };
+      const params = { key: "Your API Token here" };
 
       const { data } = await axios.post("https://api.imgbb.com/1/upload", formData, {
         params,
