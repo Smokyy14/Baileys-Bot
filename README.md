@@ -121,8 +121,8 @@ This project is licensed under the MIT License — feel free to use it for comme
 ---
 
 📬 Contact me here!
-[Gmail](fdsmdfr985@gmail.com)
-[Twitter](https://x.com/StarsOnThaSky)
+- [Gmail](fdsmdfr985@gmail.com)
+- [Twitter](https://x.com/StarsOnThaSky)
 
 Want to talk or show your project? Open an issue or fork away!
 
