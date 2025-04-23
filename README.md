@@ -115,7 +115,7 @@ Open a Pull Request
 
 ---
 
-📄 License
+### 📄 License
 This project is licensed under the MIT License — feel free to use it for commercial or private projects.
 
 ---
