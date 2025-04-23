@@ -1,15 +1,14 @@
 const ffmpeg = require("fluent-ffmpeg");
-const { downloadMediaMessage } = require("@whiskeysockets/baileys");
+const { downloadMediaMessage } = require("baileys");
 const { unlink } = require("fs").promises;
 const { resolve } = require("path");
 
 module.exports = {
   name: "sticker",
-  alias: ["pegatina", "s"],
-  use: "-sticker [foto-adjunta | foto-citada]",
-  description: "Convierte imagenes en stickers.",
-  category: "📷 Multimedia",
-  subcategory: "Imagenes",
+  alias: ["s"],
+  use: "-sticker [ photo | quoted photo ]",
+  description: "Make stickers from videos or photos.",
+  category: "General",
 
   execute: async (sock, msg) => {
     const quoted = msg?.messages[0]?.message?.extendedTextMessage?.contextInfo?.quotedMessage;
@@ -18,7 +17,7 @@ module.exports = {
     
     if (type !== "imageMessage" && type !== "videoMessage") {
       await sock.sendMessage(msg.messages[0]?.key.remoteJid, {
-        text: "Por favor, responde a una imagen o video.",
+        text: "Please, quote a photo o video",
       });
       return;
     }
@@ -77,7 +76,7 @@ module.exports = {
       try {
         await unlink(output);
       } catch (err) {
-        console.error("Error al eliminar el archivo:", err);
+        console.error("Error trying to delete the sticker:", err);
       }
     }
   },
