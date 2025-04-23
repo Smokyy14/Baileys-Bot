@@ -26,8 +26,8 @@ module.exports = {
       ctx?.imageMessage?.caption ||
       ctx?.videoMessage?.caption;
 
-    if (body === "prefix" || body === "prefijo") {
-      return msg.reply("_Mi prefijo es:_ `/`");
+    if (body === "prefix") {
+      return msg.reply("_My prefix is:_ `/`");
     }
 
     if (!body || !["/"].some((prefix) => body.startsWith(prefix)) || body.length <= 1) return;
@@ -40,11 +40,11 @@ module.exports = {
     );
 
     if (!command) {
-      return msg.reply("```Comando no existente.```");
+      return msg.reply("```This command no exists.```");
     }
       
     if (command.dev && !sock.config.dev.includes(userId)) {
-      return msg.reply("```Este comando es solo para desarrolladores.```");
+      return msg.reply("```This command is only available to dev users.```");
     }
 
     if (key.remoteJid.includes("@g.us") && command.admin) {
@@ -55,7 +55,7 @@ module.exports = {
 
       if (!grupoAdmins.includes(key.participant)) {
         return sock.sendMessage(key.remoteJid, {
-          text: "Este comando solo está disponible para administradores.",
+          text: "This command is only available to the admins of the group",
           quoted: msg.messages[0],
         });
       }
@@ -64,7 +64,7 @@ module.exports = {
     try {
       await command.execute(sock, msg, args);
     } catch (error) {
-      msg.reply("Ocurrió un error al ejecutar el comando.").then(() => {
+      msg.reply("Something went wrong while running the command").then(() => {
         console.error(error);
       });
     }
