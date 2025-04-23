@@ -128,7 +128,7 @@ Want to talk or show your project? Open an issue or fork away!
 
 ---
 
-💡 Tip
+### 💡 Tip
 You can use this base to build powerful bots for:
 
 Community management
