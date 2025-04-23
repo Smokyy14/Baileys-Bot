@@ -1,4 +1,4 @@
-# Base-Bot
+# Baileys-Bot
 
 A foundational WhatsApp bot built with JavaScript, designed for the Baileys multi-device library.
 
