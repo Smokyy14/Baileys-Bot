@@ -2,6 +2,14 @@ const { downloadContentFromMessage } = require("baileys");
 const axios = require("axios");
 const { FormData, Blob } = require('formdata-node');
 
+async function streamToArray(stream) {
+  const chunks = [];
+  for await (const chunk of stream) {
+    chunks.push(chunk);
+  }
+  return chunks;
+}
+
 module.exports = {
   name: "imgurl",
   alias: ["tourl"],
@@ -16,8 +24,8 @@ module.exports = {
 
     try {
       await sock.sendMessage(from, { react: { text: "⏳", key: info.key } });
-      const citado = msg?.messages[0]?.message?.extendedTextMessage?.contextInfo?.quotedMessage ? msg?.messages[0]?.message?.extendedTextMessage?.contextInfo?.quotedMessage : info?.message;
-      const messageType = Object.keys(citado)[0];
+      const quoted = msg?.messages[0]?.message?.extendedTextMessage?.contextInfo?.quotedMessage ? msg?.messages[0]?.message?.extendedTextMessage?.contextInfo?.quotedMessage : info?.message;
+      const messageType = Object.keys(quoted)[0];
 
     if (messageType !== "imageMessage") {
       await sock.sendMessage(from, { react: { text: "❔️", key: info.key } });
@@ -26,7 +34,7 @@ module.exports = {
     }
       await sock.sendPresenceUpdate('composing', from) 
 
-      const stream = await downloadContentFromMessage(citado[messageType], 'image');
+      const stream = await downloadContentFromMessage(quoted[messageType], 'image');
       const buffer = Buffer.concat(await streamToArray(stream));
 
       const blob = new Blob([buffer], { type: 'image/png' });
@@ -56,11 +64,3 @@ module.exports = {
     }
   }
 };
-
-async function streamToArray(stream) {
-  const chunks = [];
-  for await (const chunk of stream) {
-    chunks.push(chunk);
-  }
-  return chunks;
-}
