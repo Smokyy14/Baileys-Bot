@@ -1,4 +1,4 @@
-const whatsapp = require("@whiskeysockets/baileys");
+const whatsapp = require("baileys");
 const discord = require("@discordjs/collection");
 const readl = require("readline");
 const pino = require("pino");
@@ -23,16 +23,16 @@ async function connectToWA() {
         version: [2, 3000, 1015901307], 
     })
 
-    // Figura que el numero del bot permanezca siempre en linea. Puedes comentarla si prefieres mantener esto desactivado.
+   // Set the bot number to always stay online. You can comment on it if you'd prefer to keep this disabled.
     sock.markOnlineOnConnect; 
 
     if (!sock.authState.creds.registered) {
         const input = (txt) => new Promise((resolve) => rl.question(txt, resolve));
 
-        const phone = await input("Escribe tú número de WhatsApp: ");
+        const phone = await input("Write your number here: ");
         const number = phone.replace(/[\s+\-()]/g, "");
         const code = await sock.requestPairingCode(number);
-        console.log(`Codigo ${code} en la tienda del Fortnite chicos`)
+        console.log(`Your code is: ${code} `)
     }
 
     sock.commands = new discord.Collection();
