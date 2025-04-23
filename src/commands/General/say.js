@@ -1,9 +1,9 @@
 module.exports = {
-	name: "say",
- // alias: [""], Si quieres añadir alias, debes marcarlos como un array para el funcionamiento del comando help.
-    category: "Comandos",
+    name: "say",
+    alias: [""], // If you want to add aliases, you must mark them as an array for the help command to work.
+    category: "General",
     use: "/say < mensaje >",
-    description: "Repite tu mensaje.",
+    description: "Repeats your message.",
     
     async execute (sock, msg, args) {
         const message = args.join(" ");
