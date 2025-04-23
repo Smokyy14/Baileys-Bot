@@ -1,16 +1,16 @@
 module.exports = {
     name: "everyone",
     alias: ["all", "mentionall"],
-    use: "/everyone [mensaje]",
-    description: "Etiqueta a todo el grupo.",
-    category: "Comandos",
-	admin: true,
+    use: "/everyone [ message (optional) ]",
+    description: "Tag all group members.",
+    category: "General",
+    admin: true,
 
     async execute(sock, msg, args) {
         const group = msg.messages[0].key.remoteJid; 
         const { remoteJid, participant } = msg.messages[0].key; 
 		if ( remoteJid.endsWith("@g.us")) {
-            return msg.reply("Este comando no puede ser usado en chats privados.")
+            return msg.reply("This command cannot be used in DM.")
         }
         try {
             const groupMetadata = await sock.groupMetadata(remoteJid); 
@@ -29,7 +29,7 @@ module.exports = {
             });
         } catch (error) {
             console.error("Error en el comando everyone: ", error);
-            await sock.sendMessage(remoteJid, { text: "Hubo un error al intentar mencionar a todos." });
+            await sock.sendMessage(remoteJid, { text: "There was an error trying to mention all members." });
         }
     }
 };
