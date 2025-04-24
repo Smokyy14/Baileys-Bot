@@ -39,7 +39,7 @@ npm install
 ### 3. Start the bot
 
 ```bash
-node .
+npm run deploy
 ```
 
 - This will prompt you with a numeral code. Introduce it using your WhatsApp account and the bot will be ready to use.
