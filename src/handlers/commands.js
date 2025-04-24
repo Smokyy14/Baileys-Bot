@@ -16,5 +16,5 @@ module.exports = async (sock) => {
     }
   }
 
-  console.log(`${sock.commands.size} comandos listos para ejecutarse.`);
+  console.log(`${sock.commands.size} commands ready to use!`);
 };
