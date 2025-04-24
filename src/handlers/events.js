@@ -13,5 +13,5 @@ module.exports = async (sock) => {
     });
   }
 
-  console.log("Eventos cargados exitosamente.");
+  console.log("Events loaded correctly");
 };
