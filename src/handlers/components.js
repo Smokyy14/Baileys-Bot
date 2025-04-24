@@ -12,5 +12,5 @@ module.exports = async (sock) => {
     sock.components.set(component.id, component);
   }
 
-  console.log("Componente cargados.");
+  console.log("Components ready.");
 };
