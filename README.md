@@ -26,7 +26,7 @@ If you're starting to build your own WhatsApp bot, this base will save you hours
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Smokyy14/Base-Bot.git
+git clone https://github.com/Smokyy14/Baileys-Bot.git
 cd Base-Bot
 ```
 
