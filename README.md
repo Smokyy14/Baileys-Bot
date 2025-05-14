@@ -27,7 +27,7 @@ If you're starting to build your own WhatsApp bot, this base will save you hours
 
 ```bash
 git clone https://github.com/Smokyy14/Baileys-Bot.git
-cd Base-Bot
+cd Baileys-Bot
 ```
 
 ### 2. Install the dependences
