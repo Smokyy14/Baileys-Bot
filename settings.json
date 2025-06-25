@@ -1,8 +1,7 @@
 {
-  "dev": ["59895609705@s.whatsapp.net",  "59899354859@s.whatsapp.net",
- "59894422037@s.whatsapp.net"],
+  "dev": []
   "msg": {
     "error": "Ha ocurrido un error.\nIntentalo de nuevo.\n\n> Si persiste, contactate con soporte:\n> -soporte"
   },
-  "api": "http://nodo.cinammon.es:5024/"
+  "api": ""
 }
