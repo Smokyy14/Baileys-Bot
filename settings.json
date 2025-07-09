@@ -1,7 +1,7 @@
 {
   "dev": [],
   "msg": {
-    "error": "Ha ocurrido un error.\nIntentalo de nuevo.\n\n> Si persiste, contactate con soporte:\n> -soporte"
+    "error": "An error has occurred.\nPlease try again."
   },
   "api": ""
 }
