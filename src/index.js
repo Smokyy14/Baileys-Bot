@@ -50,7 +50,6 @@ async function connectToWhatsApp() {
 
   const directory = await readdir(path.resolve("src", "handlers"));
 
-
   for (const file of directory) {
     require(`./handlers/${file}`)(sock); 
   }
