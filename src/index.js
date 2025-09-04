@@ -1,53 +1,67 @@
-const whatsapp = require("baileys");
-const discord = require("@discordjs/collection");
-const readl = require("readline");
+const { createInterface } = require("readline");
+const { readdir } = require("fs/promises");
+const ffmpeg = require("fluent-ffmpeg");
+const ffmpegInstaller = require("@ffmpeg-installer/ffmpeg");
 const pino = require("pino");
-const fs = require("fs");
+const dotenv = require("dotenv");
+const { Collection } = require("@discordjs/collection");
+const { makeWASocket, 
+        useMultiFileAuthState, 
+        Browsers } = require("baileys");
 
-process.loadEnvFile();
+dotenv.config();
+ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
-const rl = readl.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
-
-async function connectToWA() {
-    const { state, saveCreds } = await whatsapp.useMultiFileAuthState("auth");
-
-    const browser = whatsapp.Browsers.appropriate("firefox");
-
-    const sock = whatsapp.makeWASocket({
-        logger: pino({ level: "silent" }),
-        auth: state,
-        browser,
-        version: [2, 3000, 1015901307], 
-    })
-
-   // Set the bot number to always stay online. You can comment on it if you'd prefer to keep this disabled.
-    sock.markOnlineOnConnect; 
-
-    if (!sock.authState.creds.registered) {
-        const input = (txt) => new Promise((resolve) => rl.question(txt, resolve));
-
-        const phone = await input("Write your number here: ");
-        const number = phone.replace(/[\s+\-()]/g, "");
-        const code = await sock.requestPairingCode(number);
-        console.log(`Your code is: ${code} `)
-    }
-
-    sock.commands = new discord.Collection();
-    sock.components = new discord.Collection();
-
-    const folder = await fs.promises.readdir("./src/handlers");
-    for (const file of folder) {
-        const handler = require(`./handlers/${file}`);
-        if (typeof handler === "function") handler(sock);
-    }
-
-    sock.ev.on("creds.update", saveCreds);
-    sock.config = require("../settings.json");
+const configPath = path.join(__dirname, "..", "settings.json");
+let settings;
+try {
+  settings = require(configPath);
+} catch (err) {
+  console.error("No se pudo cargar settings.json desde:", configPath);
+  process.exit(1);
 }
 
-connectToWA();
+const rl = createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-module.exports = { connectToWA };
+async function connectToWhatsApp() {
+  const question = (txt) => new Promise((resolve) => rl.question(txt, resolve));
+
+  const { state, saveCreds } = await useMultiFileAuthState("auth");
+
+  const sock = makeWASocket ({
+    auth: state,
+    // version: [2, 3000, 1015901307],
+    logger: pino({ level: "silent" }),
+    browser: Browsers.appropriate("chrome"),
+  });
+
+  sock.commands = new Collection();
+  sock.config = require(path.join(__dirname, "..", "settings.json"));
+  
+  if (!sock.authState.creds.registered) {
+    const number = await question(`Escribe tu número de WhatsApp: `);
+    const formatNumber = number.replace(/[\s+\-()]/g, "");
+    const code = await sock.requestPairingCode(formatNumber);
+    console.log(`Tu código de conexión es: ${code}`);
+  }
+
+  const directory = await readdir(path.resolve("src", "handlers"));
+
+
+  for (const file of directory) {
+    require(`./handlers/${file}`)(sock); 
+  }
+
+  sock.ev.on("creds.update", saveCreds);
+}
+
+connectToWhatsApp();
+
+module.exports = { connectToWhatsApp };
+
+process.on("uncaughtException", console.error);
+process.on("unhandledRejection", console.error);
+process.on("uncaughtExceptionMonitor", console.error);
