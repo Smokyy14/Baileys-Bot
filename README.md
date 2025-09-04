@@ -4,7 +4,7 @@ A foundational WhatsApp bot built with JavaScript, designed for the Baileys mult
 
 ## 📌 Overview
 
-This repository contains the base structure for a modular and scalable WhatsApp bot using the [Baileys]([https://www.npmjs.com/package/baileys) library.
+This repository contains the base structure for a modular and scalable WhatsApp bot using the [Baileys](https://www.npmjs.com/package/baileys) library.
 
 It provides a clean and organized codebase where you can easily create commands, handle group events, customize behavior, and expand functionality.
 
